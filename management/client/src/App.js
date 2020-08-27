@@ -5,9 +5,10 @@ import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper'; //외부를 감싸기 위한 컴포넌트
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
-import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import { withStyles } from "@material-ui/core/styles";
+
+
 
 const styles = theme => ({
   root : {
@@ -18,39 +19,27 @@ const styles = theme => ({
   table: {
     minWidth: 1080
   }
-})
+});
 
-const customers = [
-  {
-  'id' : 1,
-  'avatar' : "https://placeimg.com/64/64/any",
-  'name' : '신승혁',
-  'birthday' : '920323',
-  'gender' : '남자',
-  'loaction' : ' 서울',
-  'job' : "취업 준비생"
-  },
-  {
-    'id' : 2,
-    'avatar' : "https://placeimg.com/64/64/any",
-    'name' : '신승혁',
-    'birthday' : '920323',
-    'gender' : '남자',
-    'loaction' : ' 서울',
-    'job' : "취업 준비생"
-    },
-    {
-      'id' : 3,
-      'avatar' : "https://placeimg.com/64/64/any",
-      'name' : '신승혁',
-      'birthday' : '920323',
-      'gender' : '남자',
-      'loaction' : ' 서울',
-      'job' : "취업 준비생"
-      }
-]
 
+// state = 변환 가능한 데이터, props = 변환 불가능한 데이터
 class App extends Component {
+
+  state = {
+    customers: ""
+  }
+
+  componentDidMount() {
+    this.callApi()
+    .then(res => this.setState({customers:res}))
+    .catch(err => console.log(err));
+  }
+
+  callApi = async () =>{
+    const res = await fetch('/api/customers')
+    const body = await res.json();
+    return body;
+  }
   
   render() {
     const { classes } = this.props;
@@ -69,7 +58,7 @@ class App extends Component {
           </TableHead>
 
           <TableBody>
-            {customers.map(member => { // 맵을 이용해서 다수의 정보를 출력할때는 key를 사용해야함
+            {this.state.customers ? this.state.customers.map(member => { // 맵을 이용해서 다수의 정보를 출력할때는 key를 사용해야함
                 return (
                   <Customer 
                     key = {member.id}
@@ -82,7 +71,7 @@ class App extends Component {
                     job = {member.job}
                   />
                 )
-            })}
+            }) : ""}
           </TableBody>
         </Table>
         
