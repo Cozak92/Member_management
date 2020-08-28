@@ -7,6 +7,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from "@material-ui/core/TableCell";
 import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress"
+import TableRow from '@material-ui/core/TableRow'
 
 
 
@@ -18,27 +20,53 @@ const styles = theme => ({
   },
   table: {
     minWidth: 1080
+  },
+  progress : {
+    margin: theme.spacing.unit * 2
   }
 });
+
+/*
+
+  1.React Life Cycle
+
+  consturctor()
+
+  componentWillMount()
+
+  redner()
+
+  componentDidMount()
+
+  when props or state changed => shouldComponentUpdate()
+
+ */
 
 
 // state = 변환 가능한 데이터, props = 변환 불가능한 데이터
 class App extends Component {
 
   state = {
-    customers: ""
+    customers: "",
+    completed : 0 // progress용 변수
   }
 
   componentDidMount() {
+    this.timer = setInterval(this.progress, 20);
     this.callApi()
     .then(res => this.setState({customers:res}))
     .catch(err => console.log(err));
   }
 
   callApi = async () =>{
-    const res = await fetch('/api/customers')
+    const res = await fetch('/api/customers');
     const body = await res.json();
     return body;
+  }
+
+  progress = () => {
+    const { completed } = this.state;
+    this.setState({ completed: completed >= 100 ? 0 : completed + 1});
   }
   
   render() {
@@ -71,7 +99,12 @@ class App extends Component {
                     job = {member.job}
                   />
                 )
-            }) : ""}
+            }) :  // colSpan - 6개의 열을 다 차지할수 있또록함
+            <TableRow>
+              <TableCell colSpan = "6" align= "center" > 
+                <CircularProgress className = {classes.progress} variant = "determinate" value= {this.state.completed} />
+              </TableCell>
+            </TableRow>}
           </TableBody>
         </Table>
         
