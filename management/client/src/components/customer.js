@@ -1,6 +1,8 @@
 import React from 'react';
-import TableRow from "@material-ui/core/TableRow"
-import TableCell from "@material-ui/core/TableCell"
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import CustomerDelete from './customerDelete';
+import CustomerUpdate from './customerUpdate';
 
 
 class Customer extends React.Component {
@@ -8,12 +10,16 @@ class Customer extends React.Component {
         return (
             <TableRow>
                 <TableCell>{this.props.id}</TableCell>
-                <TableCell><img src = {this.props.avatar} alt="profile"></img></TableCell>
+                <TableCell><img src = {this.props.image} alt="profile" height = "64" width = "64" ></img></TableCell>
                 <TableCell>{this.props.name}</TableCell>
-                <TableCell>{this.props.birthday}</TableCell>
-                <TableCell>{this.props.location}</TableCell>
+                <TableCell>{this.props.birthday.toLocaleString()}</TableCell>
                 <TableCell>{this.props.gender}</TableCell>
+                <TableCell>{this.props.location}</TableCell>
                 <TableCell>{this.props.job}</TableCell>
+                <TableCell>
+                    <CustomerDelete stateRefresh = {this.props.stateRefresh} id = {this.props.id}></CustomerDelete>
+                    {/* <CustomerUpdate id = {this.props.id} name = {this.props.name} birth = {this.props.birthday.toLocaleString()} gender = {this.props.gender} gender = {this.props.location} job = {this.props.job} ></CustomerUpdate> */}
+                </TableCell>
             </TableRow>
         )
 
