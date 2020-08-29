@@ -3,7 +3,7 @@
   "name": "management",
   "version": "1.0.0",
   "description": "For studying React",
-  "main": "/src/server.js",
+  "main": "./src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:client": "cd src/client && npm start",

@@ -1,7 +1,8 @@
 import fs from "fs"
 import mysql from "mysql"
 
-const data = fs.readFileSync('database.json');
+const __dirname = "E:/Portfolio/Member_Management_System/src"
+const data = fs.readFileSync(__dirname +"/database.json");
 const conf = JSON.parse(data);
 
 const connection = mysql.createConnection({
