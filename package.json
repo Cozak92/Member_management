@@ -3,11 +3,11 @@
   "name": "management",
   "version": "1.0.0",
   "description": "For studying React",
-  "main": "server.js",
+  "main": "/src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:client": "cd client && yarn start",
-    "start:server": "nodemon server.js",
+    "start:client": "cd src/client && yarn start",
+    "start:server": "nodemon /src/server.js",
     "dev": "npm-run-all --parallel start:**"
   },
   "repository": {
