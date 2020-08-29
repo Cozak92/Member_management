@@ -18,6 +18,7 @@ export const postMember = (req,res) => {
         body: {name, birth, gender, location, job }
       } = req;
 
+
       const params = [image,name,birth,gender,location,job]
       connection.query(sql,params,
         async (err,rows,fields) => {
@@ -39,6 +40,37 @@ export const deleteMember = (req,res) => {
         (err,rows,fields) => {
             res.send(rows)
 
+        })
+        
+}
+
+export const updateMember = (req,res) => {
+    let sql = "UPDATE CUSTOMER SET image = ? ,name =?,birth=?,gender=?,location=?,job=? WHERE id = ?";
+    let image;
+    let params = []
+
+    const {
+        params : {id},
+        body: {name, birth, gender, location, job }
+    } = req;
+
+
+    if(req.file){
+        image = 'http://localhost:5000/image/' + req.file.filename
+        params = [image,name,birth,gender,location,job,id]
+
+    }
+    else{
+        sql = "UPDATE CUSTOMER SET name =?,birth=?,gender=?,location=?,job=? WHERE id = ?";
+        params = [name,birth,gender,location,job,id]
+
+    }
+
+
+    connection.query(sql,params,
+        (err,rows,fields) => {
+            if(err) throw err
+            res.send(rows)
         })
         
 }

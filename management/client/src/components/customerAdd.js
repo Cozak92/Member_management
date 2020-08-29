@@ -77,7 +77,6 @@ class CustomerAdd extends React.Component {
         e.preventDefault() //데이터가 서버가 전달됨에 있어서 오류가 발생하지 않도록
         this.addCustomer()
         .then((res) => {
-            console.log(res.data)
             this.props.stateRefresh();
         })
         this.setState({
@@ -124,6 +123,7 @@ class CustomerAdd extends React.Component {
                 'content-type' : 'multipart/form-data'
             }
         }
+        console.log(fomrData)
         //axios의 post 라이브러리
         return post(url, fomrData, config);
     }
@@ -134,13 +134,21 @@ class CustomerAdd extends React.Component {
         return (
 
             <div>
-                <Button variant = "contained"  color="primary" onClick={this.handleClickOpen} margin-top = "50">
+                <Button variant = "contained"  color="primary" onClick={this.handleClickOpen}>
                     고객 추가하기
                 </Button>
                 <Dialog open={this.state.open} onClose ={this.handleClickClose}>
                     <DialogTitle>고객 추가</DialogTitle>
                     <DialogContent>
-                        프로필 이미지 : <input type = "file" name="file" accept="image/*" file = {this.state.file} value = {this.state.fileName} onChange = {this.handleFileChange}></input>
+                        프로필 이미지 : <input 
+                                                type = "file" 
+                                                accept="image/*" 
+                                                name= "file"
+                                                file = {this.state.file} 
+                                                value = {this.state.fileName} 
+                                                onChange = {this.handleFileChange}/>
+                                                
+
                         <br></br>
                         이름 : <input type = "text" name="name" value = {this.state.name} onChange = {this.handleValueChange}></input>
                         <br></br>
@@ -171,6 +179,7 @@ class CustomerAdd extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <Button variant = "contained"  color="primary" onClick={this.handleFormSubmit}>등록</Button>
+                        <Button variant = "contained"  color="primary" onClick={this.handleClickClose}>취소</Button>
                     </DialogActions>
 
                 </Dialog>
@@ -207,4 +216,4 @@ class CustomerAdd extends React.Component {
 }
 
 
-export default CustomerAdd
+export default withStyles(styles)(CustomerAdd)

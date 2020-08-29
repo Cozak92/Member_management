@@ -32,7 +32,7 @@ const styles = theme => ({
     minWidth: 1080
   },
   progress : {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing(2)
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -147,14 +147,6 @@ class App extends Component {
       <div ClassName = {classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             고객관리 시스템
           </Typography>

@@ -34,9 +34,6 @@ class CustomerDelete extends React.Component {
         });
         this.props.stateRefresh();
     }
-    handleValueUpdate = (e) => {
-
-    }
 
     render () {
         return (
